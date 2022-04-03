@@ -1,15 +1,31 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { SettingsProvider } from "./settingsContext";
+import { SettingsProvider, useSettingsContext } from "./settingsContext";
+import { NextComponentType, NextPageContext } from "next/types";
+import Login from "./login";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+}: {
+  Component: NextComponentType<NextPageContext, any, {}>;
+  pageProps: any;
+}) {
+  const { user } = useSettingsContext();
+
+  return (
+    <div className="min-h-screen bg-cloud bg-cover bg-fixed ">
+      {user.loggedIn ? <Component {...pageProps} /> : <Login />}
+    </div>
+  );
+}
+
+function MyAppWithProvider({ Component, pageProps }: AppProps) {
   return (
     <SettingsProvider>
-      <div className="min-h-screen bg-cloud bg-cover bg-fixed ">
-        <Component {...pageProps} />
-      </div>
+      <MyApp Component={Component} pageProps={pageProps} />
     </SettingsProvider>
   );
 }
 
-export default MyApp;
+export default MyAppWithProvider;

@@ -10,4 +10,5 @@ export const initialOperation = {
 
 export const initialUser = {
   name: "Player",
+  loggedIn: false,
 } as User;
