@@ -19,6 +19,8 @@ export type SettingsState = {
   setUser: Dispatch<SetStateAction<User>>;
   addition: Operation;
   setAddition: Dispatch<SetStateAction<Operation>>;
+  multiplication: Operation;
+  setMultiplication: Dispatch<SetStateAction<Operation>>;
 };
 
 export type Equation = {

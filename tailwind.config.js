@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage:{
-        cat:"url('../public/cat1.jpg')",
+        cloud:"url('../public/cloud.jpg')",
       } 
     },
   },

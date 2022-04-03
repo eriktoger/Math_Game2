@@ -1,14 +1,13 @@
 use rand::distributions::{Distribution, Uniform};
-use wasm_bindgen::prelude::*;
-
 use rand::seq::SliceRandom;
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
+use wasm_bindgen::prelude::*;
 
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize)]
 #[wasm_bindgen]
-pub struct Addition {
+pub struct Operation {
     enabled: bool,
     firstEnd: u32,
     firstStart: u32,
@@ -25,11 +24,11 @@ pub struct Equation {
 }
 
 #[wasm_bindgen]
-pub fn generate_equation(addition: JsValue) -> JsValue {
+pub fn generate_addition(addition: JsValue) -> JsValue {
     let mut rng = rand::thread_rng();
-    let adds: Addition = addition.into_serde().unwrap();
-    let first_value = Uniform::from(adds.firstStart..adds.firstEnd);
-    let second_value = Uniform::from(adds.secondStart..adds.secondEnd);
+    let adds: Operation = addition.into_serde().unwrap();
+    let first_value = Uniform::from(adds.firstStart..adds.firstEnd + 1);
+    let second_value = Uniform::from(adds.secondStart..adds.secondEnd + 1);
 
     let first = first_value.sample(&mut rng);
     let second = second_value.sample(&mut rng);
@@ -39,6 +38,26 @@ pub fn generate_equation(addition: JsValue) -> JsValue {
         second,
         operator: '+',
         answer: first + second,
+    };
+
+    return JsValue::from_serde(equation).unwrap();
+}
+
+#[wasm_bindgen]
+pub fn generate_multiplication(multiplication: JsValue) -> JsValue {
+    let mut rng = rand::thread_rng();
+    let adds: Operation = multiplication.into_serde().unwrap();
+    let first_value = Uniform::from(adds.firstStart..adds.firstEnd + 1);
+    let second_value = Uniform::from(adds.secondStart..adds.secondEnd + 1);
+
+    let first = first_value.sample(&mut rng);
+    let second = second_value.sample(&mut rng);
+
+    let equation = &Equation {
+        first,
+        second,
+        operator: '*',
+        answer: first * second,
     };
 
     return JsValue::from_serde(equation).unwrap();

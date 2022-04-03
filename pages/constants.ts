@@ -1,6 +1,6 @@
 import { Operation, User } from "./types";
 
-export const initialAddition = {
+export const initialOperation = {
   enabled: true,
   firstStart: 1,
   firstEnd: 10,

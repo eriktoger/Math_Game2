@@ -5,7 +5,9 @@ import { SettingsProvider } from "./settingsContext";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SettingsProvider>
-      <Component {...pageProps} />
+      <div className="min-h-screen bg-cloud bg-cover bg-fixed ">
+        <Component {...pageProps} />
+      </div>
     </SettingsProvider>
   );
 }
