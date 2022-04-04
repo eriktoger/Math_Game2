@@ -1,18 +1,19 @@
 import { LoginData } from "../api/types";
 
-export const onLogIn = async (
-  name: string,
-  password: string,
+export const genericFetch = async (
   onSuccess: (newName: string, newLoggedIn: boolean) => void,
-  onFail: (message: string) => void
+  onFail: (message: string) => void,
+  method: string,
+  url: string,
+  body: object
 ) => {
   try {
-    const response = await fetch("/api/login", {
-      method: "POST",
+    const response = await fetch(url, {
+      method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, password }),
+      body: JSON.stringify(body),
     });
     const data = (await response.json()) as LoginData;
     const newName = data?.name;
@@ -26,3 +27,21 @@ export const onLogIn = async (
     onFail("Unknown error");
   }
 };
+
+export const onLogIn = async (
+  name: string,
+  password: string,
+  onSuccess: (newName: string, newLoggedIn: boolean) => void,
+  onFail: (message: string) => void
+) => genericFetch(onSuccess, onFail, "POST", "/api/login", { name, password });
+
+export const createUser = async (
+  name: string,
+  password: string,
+  onSuccess: (newName: string, newLoggedIn: boolean) => void,
+  onFail: (message: string) => void
+) =>
+  genericFetch(onSuccess, onFail, "POST", "/api/createUser", {
+    name,
+    password,
+  });
