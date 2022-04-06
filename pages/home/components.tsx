@@ -37,7 +37,7 @@ const OperationInputs = ({
   exampleText: string;
 }) => (
   <>
-    <div>
+    <div className="mx-2 p-1">
       <input
         type="checkbox"
         id="scales"
@@ -52,9 +52,9 @@ const OperationInputs = ({
       />
       <label htmlFor="scales">Enable {title}</label>
     </div>
-    <span>{exampleText}</span>
+    <span className="mx-2 p-1">{exampleText}</span>
 
-    <div>
+    <div className="mx-2 p-1">
       A) Start:
       <NumberInput
         value={operation.firstStart}
@@ -69,7 +69,7 @@ const OperationInputs = ({
         changeHandler={generateOperationChangeHandler(setOperation, "firstEnd")}
       />
     </div>
-    <div>
+    <div className="mx-2 p-1">
       B) Start:
       <NumberInput
         value={operation.secondStart}
@@ -123,7 +123,7 @@ export const OperationButton = ({
   onClick: () => void;
   enabled: boolean;
 }) => (
-  <button onClick={onClick} className="p-1 border-2 rounded bg-gray-400 ">
+  <button onClick={onClick} className="m-2 p-1 border-2 rounded bg-gray-400 ">
     <span className={enabled ? "" : "line-through"}>{operation}</span>
   </button>
 );

@@ -46,15 +46,16 @@ const Home: NextPage = () => {
         {currentOperation === "Addition" && <AdditionInputs />}
         {currentOperation === "Multiplication" && <MultiplicationInputs />}
 
-        <Link passHref href={operationEnabled ? "/play" : ""}>
-          <Button disabled={!operationEnabled}>
+        {/* eslint-disable-next-line @next/next/link-passhref */}
+        <Button>
+          <Link href={operationEnabled ? "/play" : ""}>
             <a>
               {operationEnabled
                 ? "Play"
                 : "Enable an operation to start playing"}
             </a>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
     </>
   );

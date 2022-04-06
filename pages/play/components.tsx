@@ -65,7 +65,7 @@ export const UserInput = ({
             className="my-2 p-2"
             size={1}
             value={answer ?? ""}
-            type="number"
+            type="tel"
             onChange={onAnswerChange}
           />
         </div>
