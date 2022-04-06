@@ -21,7 +21,7 @@ const NumberInput = ({ value, changeHandler }: NumberInputProps) => (
     type="number"
     value={value}
     onChange={changeHandler}
-    size={5}
+    size={1}
   />
 );
 

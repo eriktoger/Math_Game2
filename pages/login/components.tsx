@@ -5,22 +5,21 @@ export const Input = ({
   title,
   value,
   onChange,
-  isPassword = false,
+  type = "text",
 }: {
   title: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  isPassword?: boolean;
+  type?: string;
 }) => (
-  <div>
-    <span className="inline-block w-32">{title}:</span>
-    <input
-      size={10}
-      type={isPassword ? "password" : "text"}
-      value={value}
-      onChange={onChange}
-    />
-  </div>
+  <input
+    className="m-1 px-1 rounded"
+    placeholder={title}
+    size={10}
+    type={type}
+    value={value}
+    onChange={onChange}
+  />
 );
 
 export const ErrorMessage = ({ message }: { message: string }) => (
@@ -31,12 +30,7 @@ export const ErrorMessage = ({ message }: { message: string }) => (
 
 export const Block = ({
   children,
-  center = false,
 }: {
   children: JSX.Element;
   center?: boolean;
-}) => (
-  <div className={`flex flex-col items-center ${center ? "col-span-2" : ""} `}>
-    {children}
-  </div>
-);
+}) => <div className={`flex flex-col items-center mx-2 `}>{children}</div>;

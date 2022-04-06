@@ -26,9 +26,7 @@ export default function Login() {
   const { isLandscape } = useWindowDimensions();
 
   return (
-    <div
-      className={`grid gap-5  ${isLandscape ? "grid-cols-2" : "grid-cols-1"}`}
-    >
+    <div className={`grid  ${isLandscape ? "grid-cols-3" : "grid-cols-1"}`}>
       <Block>
         <>
           <TextContainer full>
@@ -56,14 +54,14 @@ export default function Login() {
               Login with existing user
             </span>
           </TextContainer>
-          <div className="mx-2 p-1">
+          <div className="flex flex-col mx-2 p-1">
             <Input
               title="Name"
               value={name}
               onChange={(event) => setName(event.target.value)}
             />
             <Input
-              isPassword
+              type="password"
               title="Password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
@@ -78,7 +76,7 @@ export default function Login() {
           </Button>
         </>
       </Block>
-      <Block center={isLandscape}>
+      <Block>
         <>
           <TextContainer full={!isLandscape}>
             <span className="font-bold text-lg w-full text-center">
@@ -91,13 +89,13 @@ export default function Login() {
             onChange={(event) => setNewName(event.target.value)}
           />
           <Input
-            isPassword
+            type="password"
             title="Password"
             value={newPassword}
             onChange={(event) => setNewPassword(event.target.value)}
           />
           <Input
-            isPassword
+            type="password"
             title="Password again"
             value={newPassword2}
             onChange={(event) => setNewPassword2(event.target.value)}
