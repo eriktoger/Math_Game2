@@ -83,11 +83,13 @@ export const UserInput = ({
 );
 
 export const HomeButton = () => (
-  <Link href="/home">
-    <a>
-      <Button>Back Home</Button>
-    </a>
-  </Link>
+  <div className="flex justify-center">
+    <Link href="/home">
+      <a>
+        <Button>Back Home</Button>
+      </a>
+    </Link>
+  </div>
 );
 
 export const AnswerStats = ({

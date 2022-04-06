@@ -45,16 +45,17 @@ const Home: NextPage = () => {
         </div>
         {currentOperation === "Addition" && <AdditionInputs />}
         {currentOperation === "Multiplication" && <MultiplicationInputs />}
-
-        <Link href={operationEnabled ? "/play" : ""}>
-          <a>
-            <Button disabled={!operationEnabled}>
-              {operationEnabled
-                ? "Play"
-                : "Enable an operation to start playing"}
-            </Button>
-          </a>
-        </Link>
+        <div className="flex justify-center">
+          <Link href={operationEnabled ? "/play" : ""}>
+            <a>
+              <Button disabled={!operationEnabled}>
+                {operationEnabled
+                  ? "Play"
+                  : "Enable an operation to start playing"}
+              </Button>
+            </a>
+          </Link>
+        </div>
       </div>
     </>
   );
