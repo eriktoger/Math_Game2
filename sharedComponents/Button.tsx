@@ -13,7 +13,7 @@ export default function Button({
   const content = children ?? title;
   return (
     <button
-      className={`m-2 p-1 border-2 rounded bg-gray-400 w-fit ${disableStyle}`}
+      className={`m-2 p-1 border-2 rounded bg-gray-400 ${disableStyle}`}
       onClick={onClick}
       disabled={disabled}
     >
