@@ -1,5 +1,7 @@
+import { StaticImageData } from "next/image";
 import { Equation, Operation } from "pages/types";
 import { useEffect, useState } from "react";
+import { useWindowDimensions } from "sharedHooks";
 import init, {
   generate_addition,
   generate_multiplication,
@@ -9,7 +11,6 @@ import init, {
 export const useWasm = (addition: Operation, multiplication: Operation) => {
   const [wasmLoaded, setWasmLoaded] = useState(false);
   const [revealOrder, setRevealOrder] = useState<number[]>([]);
-  console.log("here");
   useEffect(function initilizeWasm() {
     init().then(() => {
       setWasmLoaded(true);
@@ -41,4 +42,36 @@ export const useWasm = (addition: Operation, multiplication: Operation) => {
   };
 
   return { wasmLoaded, generateEquation, revealOrder };
+};
+
+export const useResizeImage = (image: StaticImageData | null) => {
+  const [imageHeight, setImageHeight] = useState(0);
+  const [imageWidth, setImageWidth] = useState(0);
+  const { isLandscape, windowWidth, windowHeight } = useWindowDimensions();
+
+  useEffect(() => {
+    function handleResize() {
+      const { height, width } = image ?? { height: 0, width: 0 };
+
+      if (!isLandscape) {
+        const ratio = width / height;
+        const newHeight = windowHeight - 350;
+        setImageHeight(newHeight);
+        setImageWidth(newHeight * ratio);
+        return;
+      }
+      if (height < windowHeight) {
+        return;
+      }
+      const ratio = height / width;
+      setImageHeight(windowHeight * 0.9);
+      setImageWidth(windowWidth * ratio * 0.9);
+    }
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [image, isLandscape, windowHeight, windowWidth]);
+
+  return { imageHeight, imageWidth };
 };

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { initialUser, initialOperation } from "./constants";
-import { Operation, SettingsState, User } from "./types";
+import { SettingsState, User } from "./types";
 
 const useSettingsState = (): SettingsState => {
   const [user, setUser] = useState<User>(initialUser);

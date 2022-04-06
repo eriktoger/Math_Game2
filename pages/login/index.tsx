@@ -3,6 +3,7 @@ import { Button, TextContainer } from "@/sharedComponents";
 import { useSettingsContext } from "../settingsContext";
 import { Block, ErrorMessage, Input } from "./components";
 import { createUser, onLogIn } from "./helpers";
+import { useWindowDimensions } from "sharedHooks";
 
 export default function Login() {
   const { setUser } = useSettingsContext();
@@ -22,15 +23,18 @@ export default function Login() {
     }));
   const onLoginFail = (message: string) => setLoginMessage(message);
   const onCreateUserFail = (message: string) => setCreateUserMessage(message);
+  const { isLandscape } = useWindowDimensions();
 
   return (
-    <div className="flex flex-col gap-5">
+    <div
+      className={`grid gap-5  ${isLandscape ? "grid-cols-2" : "grid-cols-1"}`}
+    >
       <Block>
         <>
           <TextContainer full>
-            <text className="font-bold text-lg w-full text-center">
+            <span className="font-bold text-lg w-full text-center">
               Login anonymously
-            </text>
+            </span>
           </TextContainer>
           <Button
             onClick={() =>
@@ -41,16 +45,16 @@ export default function Login() {
               }))
             }
           >
-            <text className="w-fit">Stay Anonymous</text>
+            <span className="w-fit">Stay Anonymous</span>
           </Button>
         </>
       </Block>
       <Block>
         <>
           <TextContainer full>
-            <text className="font-bold text-lg w-full text-center">
+            <span className="font-bold text-lg w-full text-center">
               Login with existing user
-            </text>
+            </span>
           </TextContainer>
           <div className="mx-2 p-1">
             <Input
@@ -70,16 +74,16 @@ export default function Login() {
           <Button
             onClick={() => onLogIn(name, password, onSuccess, onLoginFail)}
           >
-            <text>Log in</text>
+            <span>Log in</span>
           </Button>
         </>
       </Block>
-      <Block>
+      <Block center={isLandscape}>
         <>
-          <TextContainer full>
-            <text className="font-bold text-lg w-full text-center">
+          <TextContainer full={!isLandscape}>
+            <span className="font-bold text-lg w-full text-center">
               Create new user
-            </text>
+            </span>
           </TextContainer>
           <Input
             title="Name"

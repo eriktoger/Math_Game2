@@ -7,7 +7,7 @@ import {
   MultiplicationInputs,
   OperationButton,
 } from "./components";
-import { Button } from "@/sharedComponents";
+import { Button, TextContainer } from "@/sharedComponents";
 
 const Home: NextPage = () => {
   const { user, addition, multiplication } = useSettingsContext();
@@ -15,7 +15,11 @@ const Home: NextPage = () => {
   const operationEnabled = addition.enabled || multiplication.enabled;
   return (
     <>
-      <h1 className="text-3xl font-bold mx-2 py-2 w-fit">Hello! {user.name}</h1>
+      <TextContainer>
+        <h1 className="text-3xl font-bold mx-2 py-2 w-fit">
+          Hello! {user.name}
+        </h1>
+      </TextContainer>
       <div className="flex flex-col bg-slate-300 m-2 p-2 rounded-md">
         <div className="grid grid-cols-2">
           <OperationButton

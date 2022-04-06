@@ -25,10 +25,18 @@ export const Input = ({
 
 export const ErrorMessage = ({ message }: { message: string }) => (
   <TextContainer>
-    <text className="text-red-800">{message}</text>
+    <span className="text-red-800">{message}</span>
   </TextContainer>
 );
 
-export const Block = ({ children }: { children: JSX.Element }) => (
-  <div className="flex flex-col items-center">{children}</div>
+export const Block = ({
+  children,
+  center = false,
+}: {
+  children: JSX.Element;
+  center?: boolean;
+}) => (
+  <div className={`flex flex-col items-center ${center ? "col-span-2" : ""} `}>
+    {children}
+  </div>
 );
