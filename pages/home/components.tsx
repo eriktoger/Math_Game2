@@ -25,7 +25,6 @@ const NumberInput = ({ value, changeHandler }: NumberInputProps) => (
   />
 );
 
-//make a generall one and craete 4 special ones?
 const OperationInputs = ({
   operation,
   setOperation,

@@ -7,39 +7,15 @@ import {
   MultiplicationInputs,
   OperationButton,
 } from "./components";
+import { Button } from "@/sharedComponents";
 
 const Home: NextPage = () => {
-  const { user, addition, multiplication, setUser } = useSettingsContext();
-  const [changeName, setChangeName] = useState(false);
-  const [currentName, setCurrentName] = useState(user.name);
+  const { user, addition, multiplication } = useSettingsContext();
   const [currentOperation, setCurrentOperation] = useState("Addition");
   const operationEnabled = addition.enabled || multiplication.enabled;
   return (
     <>
-      <h1 className="text-3xl font-bold mx-2">Hello: {user.name} </h1>
-      <button
-        className="mx-2"
-        onClick={() => {
-          if (changeName) {
-            setUser((oldUser) => ({ ...oldUser, name: currentName }));
-            setChangeName(false);
-          } else {
-            setChangeName(true);
-          }
-        }}
-      >
-        {changeName ? "Save name: " : "Change name: "}
-      </button>
-
-      {changeName && (
-        <input
-          value={currentName}
-          onChange={(event) => {
-            event.preventDefault();
-            setCurrentName(event.target.value);
-          }}
-        />
-      )}
+      <h1 className="text-3xl font-bold mx-2 py-2 w-fit">Hello! {user.name}</h1>
       <div className="flex flex-col bg-slate-300 m-2 p-2 rounded-md">
         <div className="grid grid-cols-2">
           <OperationButton
@@ -66,10 +42,14 @@ const Home: NextPage = () => {
         {currentOperation === "Addition" && <AdditionInputs />}
         {currentOperation === "Multiplication" && <MultiplicationInputs />}
 
-        <Link href={operationEnabled ? "/play" : ""}>
-          <a>
-            {operationEnabled ? "Play" : "Enable an operation to start playing"}
-          </a>
+        <Link passHref href={operationEnabled ? "/play" : ""}>
+          <Button disabled={!operationEnabled}>
+            <a>
+              {operationEnabled
+                ? "Play"
+                : "Enable an operation to start playing"}
+            </a>
+          </Button>
         </Link>
       </div>
     </>

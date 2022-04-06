@@ -14,7 +14,7 @@ function MyApp({
   const { user } = useSettingsContext();
 
   return (
-    <div className="min-h-screen bg-cloud bg-cover bg-fixed ">
+    <div className="min-h-screen bg-cloud bg-cover bg-fixed flex flex-col items-center">
       {user.loggedIn ? <Component {...pageProps} /> : <Login />}
     </div>
   );

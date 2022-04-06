@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { TextContainer } from "@/sharedComponents";
 
 export const Input = ({
   title,
@@ -11,7 +12,7 @@ export const Input = ({
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   isPassword?: boolean;
 }) => (
-  <div className="flex justify-center">
+  <div>
     <span className="inline-block w-32">{title}:</span>
     <input
       size={10}
@@ -22,22 +23,12 @@ export const Input = ({
   </div>
 );
 
-export const Button = ({
-  title,
-  onClick,
-  disabled = false,
-}: {
-  title: string;
-  onClick: () => void;
-  disabled?: boolean;
-}) => (
-  <button
-    className={
-      "p-1 border-2 rounded bg-gray-400 my-2" + (disabled ? " opacity-50" : "")
-    }
-    onClick={onClick}
-    disabled={disabled}
-  >
-    {title}
-  </button>
+export const ErrorMessage = ({ message }: { message: string }) => (
+  <TextContainer>
+    <text className="text-red-800">{message}</text>
+  </TextContainer>
+);
+
+export const Block = ({ children }: { children: JSX.Element }) => (
+  <div className="flex flex-col items-center">{children}</div>
 );
