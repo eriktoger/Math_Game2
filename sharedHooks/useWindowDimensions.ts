@@ -18,7 +18,7 @@ export default function useWindowDimensions() {
       const { innerWidth, innerHeight } = getWindowDimensions();
       setHeight(innerHeight);
       setWidth(innerWidth);
-      setIsLandscape(innerWidth > innerHeight && innerWidth < 1000);
+      setIsLandscape(innerWidth > innerHeight);
     }
 
     handleResize();

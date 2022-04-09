@@ -66,7 +66,10 @@ pub fn generate_multiplication(multiplication: JsValue) -> JsValue {
 #[wasm_bindgen]
 pub fn generate_order() -> JsValue {
     let mut rng = rand::thread_rng();
-    let mut array: [u32; 9] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    let mut array: [usize; 24] = [0; 24];
+    for i in 0..24 {
+        array[i] = i;
+    }
     array.shuffle(&mut rng);
     return JsValue::from_serde(&array).unwrap();
 }

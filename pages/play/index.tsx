@@ -9,6 +9,7 @@ import {
   AnswerStats,
   HomeButton,
   ImageContainer,
+  Jigsaw,
   Title,
   UserInput,
 } from "./components";
@@ -37,11 +38,11 @@ const Play: NextPage = () => {
     }
   }, [addition, equation, generateEquation, multiplication, wasmLoaded]);
 
-  if (!wasmLoaded) {
+  if (!wasmLoaded || !imageWidth) {
     return <div>Wasm is loading...</div>;
   }
 
-  const gameOver = correctAnswers === 9;
+  const gameOver = correctAnswers === 8;
   const equationAsString = `${equation?.first} ${equation?.operator} ${equation?.second} = `;
 
   const onAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -81,19 +82,24 @@ const Play: NextPage = () => {
           <AnswerStats correct={correctAnswers} wrong={wrongAnswers} />
           <HomeButton />
         </div>
-        <div className="flex items-center">
-          <ImageContainer
-            revealOrder={revealOrder}
-            correctAnswers={correctAnswers}
-          >
-            {image && (
-              <Image
-                src={image}
-                alt="image"
-                height={imageHeight}
-                width={imageWidth}
+        <div className="flex items-center ">
+          <ImageContainer>
+            <>
+              {image && (
+                <Image
+                  src={image}
+                  alt="image"
+                  height={imageHeight}
+                  width={imageWidth}
+                />
+              )}
+              <Jigsaw
+                revealOrder={revealOrder}
+                correctAnswers={correctAnswers}
+                imageHeight={imageHeight}
+                imageWidth={imageWidth}
               />
-            )}
+            </>
           </ImageContainer>
         </div>
       </div>
@@ -111,15 +117,23 @@ const Play: NextPage = () => {
         onAnswerSubmit={onAnswerSubmit}
         onNewGame={onNewGame}
       />
-      <ImageContainer revealOrder={revealOrder} correctAnswers={correctAnswers}>
-        {image && (
-          <Image
-            src={image}
-            alt="image"
-            height={imageHeight}
-            width={imageWidth}
+      <ImageContainer>
+        <>
+          {image && (
+            <Image
+              src={image}
+              alt="image"
+              height={imageHeight}
+              width={imageWidth}
+            />
+          )}
+          <Jigsaw
+            revealOrder={revealOrder}
+            correctAnswers={correctAnswers}
+            imageHeight={imageHeight}
+            imageWidth={imageWidth}
           />
-        )}
+        </>
       </ImageContainer>
       <AnswerStats correct={correctAnswers} wrong={wrongAnswers} />
       <HomeButton />

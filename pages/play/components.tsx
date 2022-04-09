@@ -1,32 +1,14 @@
 import { Button, TextContainer } from "@/sharedComponents";
 import Link from "next/link";
-
+import Image from "next/image";
+import { generateJigsawPieces } from "./helpers";
 interface ImageCointainerProps {
-  revealOrder: number[];
-  correctAnswers: number;
   children: JSX.Element | null;
 }
 
-export const ImageContainer = ({
-  revealOrder,
-  correctAnswers,
-  children,
-}: ImageCointainerProps) => (
-  <div className="relative w-fit h-fit">
-    <div className="absolute grid grid-cols-3 w-full h-full">
-      {revealOrder.map((value) => {
-        const hide = value >= correctAnswers;
-
-        return (
-          <div
-            key={value}
-            className={`bg-black z-10 transition-opacity duration-1000 ease-in-out ${
-              hide ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        );
-      })}
-    </div>
+export const ImageContainer = ({ children }: ImageCointainerProps) => (
+  <div className="relative w-fit h-fit ">
+    <div className="absolute grid grid-cols-3 w-full h-full "></div>
     {children}
   </div>
 );
@@ -106,3 +88,37 @@ export const AnswerStats = ({
     </div>
   </TextContainer>
 );
+
+export const Jigsaw = ({
+  imageWidth,
+  imageHeight,
+  revealOrder,
+  correctAnswers,
+}: {
+  imageWidth: number;
+  imageHeight: number;
+  revealOrder: number[];
+  correctAnswers: number;
+}) => {
+  const settings = generateJigsawPieces(imageWidth, imageHeight);
+  const displayLimit = correctAnswers * 3;
+
+  return (
+    <>
+      {settings.map(({ alt, style, src, width, height }, i) => {
+        const revealStyle =
+          revealOrder[i] < displayLimit ? "opacity-0" : "opacity-100";
+
+        return (
+          <div
+            key={alt}
+            className={`absolute z-10 ${revealStyle} transition-opacity duration-1000 ease-in-out`}
+            style={{ ...style }}
+          >
+            <Image src={src} alt={alt} width={width} height={height} />
+          </div>
+        );
+      })}
+    </>
+  );
+};
