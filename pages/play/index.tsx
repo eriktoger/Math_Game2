@@ -10,14 +10,13 @@ import {
   HomeButton,
   ImageContainer,
   Jigsaw,
-  Title,
   UserInput,
 } from "./components";
 import { useWindowDimensions } from "sharedHooks";
 import { StaticImageData } from "next/image";
 
 const Play: NextPage = () => {
-  const [answer, setAnswer] = useState<number | null>(null);
+  const [answer, setAnswer] = useState("");
   const [equation, setEquation] = useState<Equation | null>(null);
   const [image, setImage] = useState<StaticImageData | null>(null);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -44,18 +43,32 @@ const Play: NextPage = () => {
 
   const gameOver = correctAnswers === 8;
   const equationAsString = `${equation?.first} ${equation?.operator} ${equation?.second} = `;
-
-  const onAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setAnswer(Number(event.target.value.replace(/[^0-9]/g, "")));
-
   const onAnswerSubmit = () => {
-    if (answer === equation?.answer) {
+    if (Number(answer) === equation?.answer) {
       setCorrectAnswers((value) => value + 1);
       const newEquation = generateEquation(addition, multiplication);
       setEquation(newEquation);
-      setAnswer(null);
+      setAnswer("");
     } else {
       setWrongAnswers((value) => value + 1);
+    }
+  };
+
+  const onButtonPress = (value: string) => {
+    switch (value) {
+      case "=":
+        onAnswerSubmit();
+        break;
+      case "del":
+        setAnswer((prev) => prev.slice(0, -1));
+        break;
+      default:
+        setAnswer((prev) =>
+          (prev + value).slice(
+            0,
+            (equation?.answer ?? "").toString().length + 1
+          )
+        );
     }
   };
 
@@ -70,13 +83,11 @@ const Play: NextPage = () => {
     return (
       <div className="flex h-screen">
         <div className="flex flex-col justify-center">
-          <Title />
           <UserInput
             gameOver={gameOver}
             equationAsString={equationAsString}
             answer={answer}
-            onAnswerChange={onAnswerChange}
-            onAnswerSubmit={onAnswerSubmit}
+            onButtonPress={onButtonPress}
             onNewGame={onNewGame}
           />
           <AnswerStats correct={correctAnswers} wrong={wrongAnswers} />
@@ -108,13 +119,11 @@ const Play: NextPage = () => {
 
   return (
     <>
-      <Title />
       <UserInput
         gameOver={gameOver}
         equationAsString={equationAsString}
-        answer={answer ?? 0}
-        onAnswerChange={onAnswerChange}
-        onAnswerSubmit={onAnswerSubmit}
+        answer={answer}
+        onButtonPress={onButtonPress}
         onNewGame={onNewGame}
       />
       <ImageContainer>

@@ -13,47 +13,46 @@ export const ImageContainer = ({ children }: ImageCointainerProps) => (
   </div>
 );
 
-export const Title = () => (
-  <TextContainer>
-    <h1 className="text-3xl font-bold">Playing</h1>
-  </TextContainer>
-);
-
 interface UserInputProps {
   gameOver: boolean;
   equationAsString: string;
-  answer: number | null;
-  onAnswerChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onAnswerSubmit: () => void;
+  answer: string;
+  onButtonPress: (value: string) => void;
   onNewGame: () => void;
 }
+
+const chars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "="];
+const NumPad = ({ onClick }: { onClick: (value: string) => void }) => (
+  <div className="grid grid-cols-3">
+    {chars.map((char) => (
+      <Button key={char} onClick={() => onClick(char)}>
+        {char}
+      </Button>
+    ))}
+  </div>
+);
 
 export const UserInput = ({
   gameOver,
   equationAsString,
   answer,
-  onAnswerChange,
-  onAnswerSubmit,
+  onButtonPress,
   onNewGame,
 }: UserInputProps) => (
   <>
     {!gameOver && (
-      <div className="flex flex-col my-2 h-160 gap-2">
-        <div className="flex justify-center">
-          <TextContainer>
-            <span>{equationAsString}</span>
-          </TextContainer>
-          <input
-            className="my-2 p-2"
-            size={1}
-            value={answer ?? ""}
-            type="tel"
-            onChange={onAnswerChange}
-          />
+      <div className="flex ">
+        <div className="flex flex-col justify-center">
+          <>
+            <TextContainer>
+              <span className="w-20">{equationAsString}</span>
+            </TextContainer>
+            <TextContainer>
+              <span className="h-5 w-20">{answer} </span>
+            </TextContainer>
+          </>
         </div>
-        <div className="flex justify-center">
-          <Button onClick={onAnswerSubmit} title="Send" />
-        </div>
+        <NumPad onClick={onButtonPress} />
       </div>
     )}
     {gameOver && (
