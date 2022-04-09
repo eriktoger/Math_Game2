@@ -22,20 +22,24 @@ const Play: NextPage = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
 
-  const { addition, multiplication } = useSettingsContext();
-  const { wasmLoaded, generateEquation, revealOrder } = useWasm(
-    addition,
-    multiplication
-  );
+  const { addition, multiplication, subtraction } = useSettingsContext();
+  const { wasmLoaded, generateEquation, revealOrder } = useWasm();
   const { isLandscape } = useWindowDimensions();
   const { imageHeight, imageWidth } = useResizeImage(image);
 
   useEffect(() => {
     if (wasmLoaded && !equation) {
-      setEquation(generateEquation(addition, multiplication));
+      setEquation(generateEquation(addition, multiplication, subtraction));
       setImage(getRandomImage());
     }
-  }, [addition, equation, generateEquation, multiplication, wasmLoaded]);
+  }, [
+    addition,
+    equation,
+    generateEquation,
+    multiplication,
+    subtraction,
+    wasmLoaded,
+  ]);
 
   if (!wasmLoaded || !imageWidth) {
     return <div>Wasm is loading...</div>;
@@ -46,7 +50,11 @@ const Play: NextPage = () => {
   const onAnswerSubmit = () => {
     if (Number(answer) === equation?.answer) {
       setCorrectAnswers((value) => value + 1);
-      const newEquation = generateEquation(addition, multiplication);
+      const newEquation = generateEquation(
+        addition,
+        multiplication,
+        subtraction
+      );
       setEquation(newEquation);
       setAnswer("");
     } else {
@@ -75,7 +83,7 @@ const Play: NextPage = () => {
   const onNewGame = () => {
     setCorrectAnswers(0);
     setWrongAnswers(0);
-    setEquation(generateEquation(addition, multiplication));
+    setEquation(generateEquation(addition, multiplication, subtraction));
     setImage(getRandomImage());
   };
 

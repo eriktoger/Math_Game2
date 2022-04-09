@@ -5,7 +5,7 @@ import { SettingsState, User } from "./types";
 const useSettingsState = (): SettingsState => {
   const [user, setUser] = useState<User>(initialUser);
   const [addition, setAddition] = useState(initialOperation);
-  //const [subtraction, setSubtraction] = useState(initialOperation);
+  const [subtraction, setSubtraction] = useState(initialOperation);
   const [multiplication, setMultiplication] = useState(initialOperation);
   //const [division, setDivision] = useState(initialOperation);
 
@@ -13,6 +13,8 @@ const useSettingsState = (): SettingsState => {
     user,
     setUser,
     addition,
+    subtraction,
+    setSubtraction,
     setAddition,
     multiplication,
     setMultiplication,
@@ -24,6 +26,8 @@ const initialSettingsState: SettingsState = {
   setUser: () => {},
   addition: initialOperation,
   setAddition: () => {},
+  subtraction: initialOperation,
+  setSubtraction: () => {},
   multiplication: initialOperation,
   setMultiplication: () => {},
 };

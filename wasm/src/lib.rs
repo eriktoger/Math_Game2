@@ -2,6 +2,7 @@ use rand::distributions::{Distribution, Uniform};
 use rand::seq::SliceRandom;
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
+use std::cmp;
 use wasm_bindgen::prelude::*;
 
 #[allow(non_snake_case)]
@@ -38,6 +39,27 @@ pub fn generate_addition(addition: JsValue) -> JsValue {
         second,
         operator: '+',
         answer: first + second,
+    };
+
+    return JsValue::from_serde(equation).unwrap();
+}
+
+#[wasm_bindgen]
+pub fn generate_subtraction(subtraction: JsValue) -> JsValue {
+    let mut rng = rand::thread_rng();
+    let subs: Operation = subtraction.into_serde().unwrap();
+    let first_value = Uniform::from(subs.firstStart..subs.firstEnd + 1);
+    let second_value = Uniform::from(subs.secondStart..subs.secondEnd + 1);
+
+    let first = first_value.sample(&mut rng);
+    let second = second_value.sample(&mut rng);
+    let largest = cmp::max(first, second);
+    let smallest = cmp::min(first, second);
+    let equation = &Equation {
+        first: largest,
+        second: smallest,
+        operator: '-',
+        answer: largest - smallest,
     };
 
     return JsValue::from_serde(equation).unwrap();

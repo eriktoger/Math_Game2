@@ -102,6 +102,18 @@ export const AdditionInputs = () => {
   );
 };
 
+export const SubtractionInputs = () => {
+  const { subtraction, setSubtraction } = useSettingsContext();
+  return (
+    <OperationInputs
+      operation={subtraction}
+      setOperation={setSubtraction}
+      title="Subtraction"
+      exampleText="Example: A - B ="
+    />
+  );
+};
+
 export const MultiplicationInputs = () => {
   const { multiplication, setMultiplication } = useSettingsContext();
   return (

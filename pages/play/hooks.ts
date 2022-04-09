@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { useWindowDimensions } from "sharedHooks";
 import init, {
   generate_addition,
+  generate_subtraction,
   generate_multiplication,
   generate_order,
-} from "../../wasm/pkg/wasm";
+} from "wasm/pkg/wasm";
 
-export const useWasm = (addition: Operation, multiplication: Operation) => {
+export const useWasm = () => {
   const [wasmLoaded, setWasmLoaded] = useState(false);
   const [revealOrder, setRevealOrder] = useState<number[]>([]);
   useEffect(function initilizeWasm() {
@@ -24,21 +25,23 @@ export const useWasm = (addition: Operation, multiplication: Operation) => {
 
   const generateEquation = (
     addition: Operation,
-    multiplication: Operation
+    multiplication: Operation,
+    subtraction: Operation
   ): Equation => {
-    if (addition.enabled && multiplication.enabled) {
-      if (Math.random() > 0.5) {
-        return generate_addition(addition);
-      }
-      return generate_multiplication(multiplication);
-    }
+    let generators = [] as (() => Equation)[];
     if (addition.enabled) {
-      return generate_addition(addition);
+      generators.push(() => generate_addition(addition));
     }
     if (multiplication.enabled) {
-      return generate_multiplication(multiplication);
+      generators.push(() => generate_multiplication(multiplication));
     }
-    throw "No enabled operator!";
+    if (subtraction.enabled) {
+      generators.push(() => generate_subtraction(subtraction));
+    }
+
+    const randomIndex = Math.floor(Math.random() * generators.length);
+
+    return generators[randomIndex]();
   };
 
   return { wasmLoaded, generateEquation, revealOrder };
