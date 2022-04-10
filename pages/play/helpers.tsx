@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import piece0_0 from "public/pieces/piece0-0.png";
 import piece0_1 from "public/pieces/piece0-1.png";
 import piece0_2 from "public/pieces/piece0-2.png";
@@ -28,12 +26,13 @@ import piece3_3 from "public/pieces/piece3-3.png";
 import piece3_4 from "public/pieces/piece3-4.png";
 import piece3_5 from "public/pieces/piece3-5.png";
 
-import cat1 from "../../public/images/cat1.jpg";
-import cuteFluffyAnimal from "../../public/images/cute-fluffy-animal.jpg";
-import panda from "../../public/images/panda.webp";
-import penquins from "../../public/images/penquins.webp";
+import cat1 from "public/images/cat1.jpg";
+import cuteFluffyAnimal from "public/images/cute-fluffy-animal.jpg";
+import panda from "public/images/panda.webp";
+import penquins from "public/images/penquins.webp";
+import catInBox from "public/images/catInBox.png";
 
-const images = [cat1, cuteFluffyAnimal, panda, penquins];
+const images = [cat1, cuteFluffyAnimal, panda, penquins, catInBox];
 
 export const getRandomImage = () => {
   const randomIndex = Math.floor(Math.random() * images.length);
