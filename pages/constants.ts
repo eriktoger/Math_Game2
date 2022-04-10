@@ -13,4 +13,5 @@ export const initialOperation = {
 export const initialUser = {
   name: "Player",
   loggedIn: false,
+  token: "",
 } as User;

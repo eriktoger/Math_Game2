@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../mongodb";
 import { LoginData } from "./types";
+import jwt from "jsonwebtoken";
 
 export default async function login(
   req: NextApiRequest,
@@ -16,8 +17,13 @@ export default async function login(
       .status(401)
       .json({ message: "Invalid username or password", loggedIn: false });
   }
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) {
+    return res.status(403).json({ message: "Auth not properly setup" });
+  }
 
+  const token = jwt.sign({ name }, jwtSecret);
   return res
     .status(200)
-    .json({ name, loggedIn: true, settings: users.settings });
+    .json({ name, loggedIn: true, settings: users.settings, token });
 }

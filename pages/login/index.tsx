@@ -17,17 +17,20 @@ export default function Login() {
   const [newPassword2, setNewPassword2] = useState("");
 
   const onSuccess = (
-    newName: string,
-    newLoggedIn: boolean,
+    name: string,
+    loggedIn: boolean,
+    token = "",
     settings?: Settings
   ) => {
     if (settings) {
       setSettings(settings);
     }
+    console.log(1, token);
     setUser((oldUser) => ({
       ...oldUser,
-      name: newName,
-      loggedIn: newLoggedIn,
+      name,
+      loggedIn,
+      token,
     }));
   };
   const onLoginFail = (message: string) => setLoginMessage(message);

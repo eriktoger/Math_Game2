@@ -5,6 +5,7 @@ export const genericFetch = async (
   onSuccess: (
     newName: string,
     newLoggedIn: boolean,
+    token: string,
     settings?: Settings
   ) => void,
   onFail: (message: string) => void,
@@ -24,8 +25,9 @@ export const genericFetch = async (
     const newName = data?.name;
     const newLoggedIn = data?.loggedIn;
     const settings = data?.settings;
-    if (newName && newLoggedIn) {
-      onSuccess(newName, newLoggedIn, settings);
+    const token = data?.token;
+    if (newName && newLoggedIn && token) {
+      onSuccess(newName, newLoggedIn, token, settings);
     } else if (data?.message) {
       onFail(data.message);
     }
@@ -40,6 +42,7 @@ export const onLogIn = async (
   onSuccess: (
     newName: string,
     newLoggedIn: boolean,
+    token: string,
     settings?: Settings
   ) => void,
   onFail: (message: string) => void

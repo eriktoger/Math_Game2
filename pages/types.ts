@@ -22,6 +22,7 @@ export type OperationKeys = keyof Operation;
 export type User = {
   name: string;
   loggedIn: boolean;
+  token: string;
 };
 
 export type SettingsState = {

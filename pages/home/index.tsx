@@ -25,7 +25,6 @@ const Home: NextPage = () => {
     }
     return "Addition";
   })();
-  console.log(defaultOperation);
   const [currentOperation, setCurrentOperation] = useState(defaultOperation);
   const operationEnabled =
     addition.enabled ||

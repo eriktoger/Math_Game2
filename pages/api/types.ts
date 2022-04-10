@@ -5,4 +5,5 @@ export type LoginData = {
   message?: string;
   loggedIn?: boolean;
   settings?: Settings;
+  token?: string;
 };
