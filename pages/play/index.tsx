@@ -91,7 +91,7 @@ const Play: NextPage = () => {
     setEquation(
       generateEquation(addition, multiplication, subtraction, division)
     );
-    setImage(getRandomImage());
+    setTimeout(() => setImage(getRandomImage()), 500);
   };
 
   if (isLandscape) {
