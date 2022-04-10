@@ -21,12 +21,12 @@ interface UserInputProps {
   onNewGame: () => void;
 }
 
-const chars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "="];
+const chars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "C", "="];
 const NumPad = ({ onClick }: { onClick: (value: string) => void }) => (
   <div className="grid grid-cols-3">
     {chars.map((char) => (
       <Button key={char} onClick={() => onClick(char)}>
-        {char}
+        <span className="text-lg px-2">{char}</span>
       </Button>
     ))}
   </div>

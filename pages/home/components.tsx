@@ -18,7 +18,7 @@ type NumberInputProps = {
 const NumberInput = ({ value, changeHandler }: NumberInputProps) => (
   <input
     className="mx-2"
-    type="number"
+    type="tel"
     value={value}
     onChange={changeHandler}
     size={1}

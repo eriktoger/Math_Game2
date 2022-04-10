@@ -72,7 +72,7 @@ const Play: NextPage = () => {
       case "=":
         onAnswerSubmit();
         break;
-      case "del":
+      case "C":
         setAnswer((prev) => prev.slice(0, -1));
         break;
       default:
