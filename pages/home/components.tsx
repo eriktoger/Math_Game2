@@ -1,6 +1,8 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { prepareServerlessUrl } from "next/dist/server/base-server";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { useSettingsContext } from "../settingsContext";
 import { Operation } from "../types";
+import { tables } from "./constants";
 
 const generateOperationChangeHandler =
   (setter: Dispatch<SetStateAction<Operation>>, field: keyof Operation) =>
@@ -35,60 +37,113 @@ const OperationInputs = ({
   setOperation: Dispatch<SetStateAction<Operation>>;
   title: string;
   exampleText: string;
-}) => (
-  <>
-    <div className="mx-2 p-1">
-      <input
-        type="checkbox"
-        id="scales"
-        name="scales"
-        checked={operation.enabled}
-        onChange={() =>
-          setOperation((oldOperation) => ({
-            ...oldOperation,
-            enabled: !oldOperation.enabled,
-          }))
-        }
-      />
-      <label htmlFor="scales">Enable {title}</label>
-    </div>
-    <span className="mx-2 p-1">{exampleText}</span>
-
-    <div className="mx-2 p-1">
-      A) Start:
-      <NumberInput
-        value={operation.firstStart}
-        changeHandler={generateOperationChangeHandler(
-          setOperation,
-          "firstStart"
+}) => {
+  const tablesAllowed = title === "Multiplication" || title === "Division";
+  const showTables = tablesAllowed && operation.usingTables;
+  return (
+    <>
+      <div className="mx-2 p-1">
+        <input
+          type="checkbox"
+          id="enableOperation"
+          name="enableOperation"
+          checked={operation.enabled}
+          onChange={() =>
+            setOperation((oldOperation) => ({
+              ...oldOperation,
+              enabled: !oldOperation.enabled,
+            }))
+          }
+        />
+        <label htmlFor="enableOperation">Enable {title}</label>
+        {tablesAllowed && (
+          <>
+            <input
+              className="ml-2"
+              type="checkbox"
+              id="enableTables"
+              name="enableTables"
+              checked={operation.usingTables}
+              onChange={() =>
+                setOperation((prev) => ({
+                  ...prev,
+                  usingTables: !prev.usingTables,
+                }))
+              }
+            />
+            <label htmlFor="enableTables">Tables</label>
+          </>
         )}
-      />
-      End:
-      <NumberInput
-        value={operation.firstEnd}
-        changeHandler={generateOperationChangeHandler(setOperation, "firstEnd")}
-      />
-    </div>
-    <div className="mx-2 p-1">
-      B) Start:
-      <NumberInput
-        value={operation.secondStart}
-        changeHandler={generateOperationChangeHandler(
-          setOperation,
-          "secondStart"
-        )}
-      />
-      End:
-      <NumberInput
-        value={operation.secondEnd}
-        changeHandler={generateOperationChangeHandler(
-          setOperation,
-          "secondEnd"
-        )}
-      />
-    </div>
-  </>
-);
+      </div>
+      {!showTables && (
+        <>
+          <span className="mx-2 p-1">{exampleText}</span>
+          <div className="mx-2 p-1">
+            A) Start:
+            <NumberInput
+              value={operation.firstStart}
+              changeHandler={generateOperationChangeHandler(
+                setOperation,
+                "firstStart"
+              )}
+            />
+            End:
+            <NumberInput
+              value={operation.firstEnd}
+              changeHandler={generateOperationChangeHandler(
+                setOperation,
+                "firstEnd"
+              )}
+            />
+          </div>
+          <div className="mx-2 p-1">
+            B) Start:
+            <NumberInput
+              value={operation.secondStart}
+              changeHandler={generateOperationChangeHandler(
+                setOperation,
+                "secondStart"
+              )}
+            />
+            End:
+            <NumberInput
+              value={operation.secondEnd}
+              changeHandler={generateOperationChangeHandler(
+                setOperation,
+                "secondEnd"
+              )}
+            />
+          </div>
+        </>
+      )}
+      {showTables && (
+        <div className="grid grid-cols-3 ">
+          {tables.map((table) => (
+            <div key={table}>
+              <input
+                className="mx-2"
+                type="checkbox"
+                id={`table-${table}`}
+                name={`table-${table}`}
+                checked={operation.tables.includes(table)}
+                onChange={() => {
+                  let newTables = [...operation.tables];
+                  if (newTables.includes(table)) {
+                    newTables = newTables.filter((t) => t !== table);
+                  } else {
+                    newTables.push(table);
+                  }
+                  setOperation((prev) => ({ ...prev, tables: newTables }));
+                }}
+              />
+              <label htmlFor={`table-${table}`}>{table}</label>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
 
 export const AdditionInputs = () => {
   const { addition, setAddition } = useSettingsContext();

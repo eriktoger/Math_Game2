@@ -6,6 +6,8 @@ export const initialOperation = {
   firstEnd: 10,
   secondStart: 1,
   secondEnd: 10,
+  usingTables: true,
+  tables: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 } as Operation;
 
 export const initialUser = {

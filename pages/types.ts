@@ -6,6 +6,8 @@ export type Operation = {
   firstEnd: number;
   secondStart: number;
   secondEnd: number;
+  usingTables: boolean;
+  tables: number[];
 };
 
 export type OperationKeys = keyof Operation;
