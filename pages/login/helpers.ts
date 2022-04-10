@@ -1,7 +1,7 @@
 import { Settings } from "pages/types";
 import { LoginData } from "../api/types";
 
-export const genericFetch = async (
+const genericAuthFetch = async (
   onSuccess: (
     newName: string,
     newLoggedIn: boolean,
@@ -21,15 +21,18 @@ export const genericFetch = async (
       },
       body: JSON.stringify(body),
     });
+    const { status } = response;
     const data = (await response.json()) as LoginData;
-    const newName = data?.name;
-    const newLoggedIn = data?.loggedIn;
-    const settings = data?.settings;
-    const token = data?.token;
-    if (newName && newLoggedIn && token) {
-      onSuccess(newName, newLoggedIn, token, settings);
-    } else if (data?.message) {
-      onFail(data.message);
+    const { name, loggedIn, settings, token, message } = data;
+    if (status === 200 && name && loggedIn && token) {
+      onSuccess(name, loggedIn, token, settings);
+      return;
+    }
+
+    if (message) {
+      onFail(message);
+    } else {
+      onFail("Unknown error");
     }
   } catch (error) {
     onFail("Unknown error");
@@ -46,15 +49,16 @@ export const onLogIn = async (
     settings?: Settings
   ) => void,
   onFail: (message: string) => void
-) => genericFetch(onSuccess, onFail, "POST", "/api/login", { name, password });
+) =>
+  genericAuthFetch(onSuccess, onFail, "POST", "/api/login", { name, password });
 
 export const createUser = async (
   name: string,
   password: string,
-  onSuccess: (newName: string, newLoggedIn: boolean) => void,
+  onSuccess: (newName: string, newLoggedIn: boolean, token: string) => void,
   onFail: (message: string) => void
 ) =>
-  genericFetch(onSuccess, onFail, "POST", "/api/createUser", {
+  genericAuthFetch(onSuccess, onFail, "POST", "/api/createUser", {
     name,
     password,
   });
