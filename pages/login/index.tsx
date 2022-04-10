@@ -4,9 +4,10 @@ import { useSettingsContext } from "../settingsContext";
 import { Block, ErrorMessage, Input } from "./components";
 import { createUser, onLogIn } from "./helpers";
 import { useWindowDimensions } from "sharedHooks";
+import { Settings } from "pages/types";
 
 export default function Login() {
-  const { setUser } = useSettingsContext();
+  const { setUser, setSettings } = useSettingsContext();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [loginMessage, setLoginMessage] = useState("");
@@ -15,12 +16,20 @@ export default function Login() {
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
 
-  const onSuccess = (newName: string, newLoggedIn: boolean) =>
+  const onSuccess = (
+    newName: string,
+    newLoggedIn: boolean,
+    settings?: Settings
+  ) => {
+    if (settings) {
+      setSettings(settings);
+    }
     setUser((oldUser) => ({
       ...oldUser,
       name: newName,
       loggedIn: newLoggedIn,
     }));
+  };
   const onLoginFail = (message: string) => setLoginMessage(message);
   const onCreateUserFail = (message: string) => setCreateUserMessage(message);
   const { isLandscape } = useWindowDimensions();

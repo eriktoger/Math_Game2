@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { initialUser, initialOperation } from "./constants";
-import { SettingsState, User } from "./types";
+import { Settings, SettingsState, User } from "./types";
 
 const useSettingsState = (): SettingsState => {
   const [user, setUser] = useState<User>(initialUser);
@@ -8,6 +8,12 @@ const useSettingsState = (): SettingsState => {
   const [subtraction, setSubtraction] = useState(initialOperation);
   const [multiplication, setMultiplication] = useState(initialOperation);
   const [division, setDivision] = useState(initialOperation);
+  const setSettings = (settings: Settings) => {
+    setAddition(settings.addition);
+    setSubtraction(settings.subtraction);
+    setMultiplication(settings.multiplication);
+    setDivision(settings.division);
+  };
 
   return {
     user,
@@ -20,6 +26,7 @@ const useSettingsState = (): SettingsState => {
     setMultiplication,
     division,
     setDivision,
+    setSettings,
   };
 };
 
@@ -34,6 +41,7 @@ const initialSettingsState: SettingsState = {
   setMultiplication: () => {},
   division: initialOperation,
   setDivision: () => {},
+  setSettings: () => {},
 };
 
 const SettingsContext = createContext(initialSettingsState);

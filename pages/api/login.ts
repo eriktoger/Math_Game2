@@ -17,5 +17,7 @@ export default async function login(
       .json({ message: "Invalid username or password", loggedIn: false });
   }
 
-  return res.status(200).json({ name, loggedIn: true });
+  return res
+    .status(200)
+    .json({ name, loggedIn: true, settings: users.settings });
 }

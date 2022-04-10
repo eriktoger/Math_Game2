@@ -10,11 +10,23 @@ import {
   SubtractionInputs,
 } from "./components";
 import { Button, TextContainer } from "@/sharedComponents";
+import { saveSettings } from "./helpers";
 
 const Home: NextPage = () => {
   const { user, addition, subtraction, multiplication, division } =
     useSettingsContext();
-  const [currentOperation, setCurrentOperation] = useState("Addition");
+  const defaultOperation = (() => {
+    if (subtraction.enabled) {
+      return "Subtraction";
+    } else if (multiplication.enabled) {
+      return "Multiplication";
+    } else if (division.enabled) {
+      return "Division";
+    }
+    return "Addition";
+  })();
+  console.log(defaultOperation);
+  const [currentOperation, setCurrentOperation] = useState(defaultOperation);
   const operationEnabled =
     addition.enabled ||
     multiplication.enabled ||
@@ -56,7 +68,19 @@ const Home: NextPage = () => {
         {currentOperation === "Division" && <DivisionInputs />}
         <div className="flex justify-center">
           <Link href={operationEnabled ? "/play" : ""}>
-            <a>
+            <a
+              onClick={() =>
+                saveSettings({
+                  user,
+                  settings: {
+                    addition,
+                    subtraction,
+                    multiplication,
+                    division,
+                  },
+                })
+              }
+            >
               <Button disabled={!operationEnabled}>
                 {operationEnabled
                   ? "Play"

@@ -1,7 +1,12 @@
+import { Settings } from "pages/types";
 import { LoginData } from "../api/types";
 
 export const genericFetch = async (
-  onSuccess: (newName: string, newLoggedIn: boolean) => void,
+  onSuccess: (
+    newName: string,
+    newLoggedIn: boolean,
+    settings?: Settings
+  ) => void,
   onFail: (message: string) => void,
   method: string,
   url: string,
@@ -18,8 +23,9 @@ export const genericFetch = async (
     const data = (await response.json()) as LoginData;
     const newName = data?.name;
     const newLoggedIn = data?.loggedIn;
+    const settings = data?.settings;
     if (newName && newLoggedIn) {
-      onSuccess(newName, newLoggedIn);
+      onSuccess(newName, newLoggedIn, settings);
     } else if (data?.message) {
       onFail(data.message);
     }
@@ -31,7 +37,11 @@ export const genericFetch = async (
 export const onLogIn = async (
   name: string,
   password: string,
-  onSuccess: (newName: string, newLoggedIn: boolean) => void,
+  onSuccess: (
+    newName: string,
+    newLoggedIn: boolean,
+    settings?: Settings
+  ) => void,
   onFail: (message: string) => void
 ) => genericFetch(onSuccess, onFail, "POST", "/api/login", { name, password });
 
