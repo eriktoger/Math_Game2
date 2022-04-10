@@ -7,7 +7,7 @@ const useSettingsState = (): SettingsState => {
   const [addition, setAddition] = useState(initialOperation);
   const [subtraction, setSubtraction] = useState(initialOperation);
   const [multiplication, setMultiplication] = useState(initialOperation);
-  //const [division, setDivision] = useState(initialOperation);
+  const [division, setDivision] = useState(initialOperation);
 
   return {
     user,
@@ -18,6 +18,8 @@ const useSettingsState = (): SettingsState => {
     setAddition,
     multiplication,
     setMultiplication,
+    division,
+    setDivision,
   };
 };
 
@@ -30,6 +32,8 @@ const initialSettingsState: SettingsState = {
   setSubtraction: () => {},
   multiplication: initialOperation,
   setMultiplication: () => {},
+  division: initialOperation,
+  setDivision: () => {},
 };
 
 const SettingsContext = createContext(initialSettingsState);

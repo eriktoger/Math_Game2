@@ -6,6 +6,7 @@ import init, {
   generate_addition,
   generate_subtraction,
   generate_multiplication,
+  generate_division,
   generate_order,
 } from "wasm/pkg/wasm";
 
@@ -26,7 +27,8 @@ export const useWasm = () => {
   const generateEquation = (
     addition: Operation,
     multiplication: Operation,
-    subtraction: Operation
+    subtraction: Operation,
+    division: Operation
   ): Equation => {
     let generators = [] as (() => Equation)[];
     if (addition.enabled) {
@@ -37,6 +39,9 @@ export const useWasm = () => {
     }
     if (subtraction.enabled) {
       generators.push(() => generate_subtraction(subtraction));
+    }
+    if (division.enabled) {
+      generators.push(() => generate_division(division));
     }
 
     const randomIndex = Math.floor(Math.random() * generators.length);

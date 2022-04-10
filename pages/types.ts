@@ -24,6 +24,8 @@ export type SettingsState = {
   setSubtraction: Dispatch<SetStateAction<Operation>>;
   multiplication: Operation;
   setMultiplication: Dispatch<SetStateAction<Operation>>;
+  division: Operation;
+  setDivision: Dispatch<SetStateAction<Operation>>;
 };
 
 export type Equation = {

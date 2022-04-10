@@ -86,6 +86,30 @@ pub fn generate_multiplication(multiplication: JsValue) -> JsValue {
 }
 
 #[wasm_bindgen]
+pub fn generate_division(division: JsValue) -> JsValue {
+    let mut rng = rand::thread_rng();
+    let divs: Operation = division.into_serde().unwrap();
+    let first_value = Uniform::from(divs.firstStart..divs.firstEnd + 1);
+    let second_value = Uniform::from(divs.secondStart..divs.secondEnd + 1);
+
+    let first = first_value.sample(&mut rng);
+    let second = second_value.sample(&mut rng);
+
+    let largest = cmp::max(first, second);
+    let smallest = cmp::min(first, second);
+    let answer = largest / smallest;
+
+    let equation = &Equation {
+        first: answer * smallest,
+        second: smallest,
+        operator: '/',
+        answer,
+    };
+
+    return JsValue::from_serde(equation).unwrap();
+}
+
+#[wasm_bindgen]
 pub fn generate_order() -> JsValue {
     let mut rng = rand::thread_rng();
     let mut array: [usize; 24] = [0; 24];

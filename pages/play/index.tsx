@@ -22,18 +22,22 @@ const Play: NextPage = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
 
-  const { addition, multiplication, subtraction } = useSettingsContext();
+  const { addition, multiplication, subtraction, division } =
+    useSettingsContext();
   const { wasmLoaded, generateEquation, revealOrder } = useWasm();
   const { isLandscape } = useWindowDimensions();
   const { imageHeight, imageWidth } = useResizeImage(image);
 
   useEffect(() => {
     if (wasmLoaded && !equation) {
-      setEquation(generateEquation(addition, multiplication, subtraction));
+      setEquation(
+        generateEquation(addition, multiplication, subtraction, division)
+      );
       setImage(getRandomImage());
     }
   }, [
     addition,
+    division,
     equation,
     generateEquation,
     multiplication,
@@ -53,7 +57,8 @@ const Play: NextPage = () => {
       const newEquation = generateEquation(
         addition,
         multiplication,
-        subtraction
+        subtraction,
+        division
       );
       setEquation(newEquation);
       setAnswer("");
@@ -83,7 +88,9 @@ const Play: NextPage = () => {
   const onNewGame = () => {
     setCorrectAnswers(0);
     setWrongAnswers(0);
-    setEquation(generateEquation(addition, multiplication, subtraction));
+    setEquation(
+      generateEquation(addition, multiplication, subtraction, division)
+    );
     setImage(getRandomImage());
   };
 

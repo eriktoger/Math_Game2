@@ -126,6 +126,18 @@ export const MultiplicationInputs = () => {
   );
 };
 
+export const DivisionInputs = () => {
+  const { division, setDivision } = useSettingsContext();
+  return (
+    <OperationInputs
+      operation={division}
+      setOperation={setDivision}
+      title="Division"
+      exampleText="Example: A / B ="
+    />
+  );
+};
+
 export const OperationButton = ({
   operation,
   onClick,

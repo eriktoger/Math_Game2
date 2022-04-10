@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSettingsContext } from "../settingsContext";
 import {
   AdditionInputs,
+  DivisionInputs,
   MultiplicationInputs,
   OperationButton,
   SubtractionInputs,
@@ -11,10 +12,14 @@ import {
 import { Button, TextContainer } from "@/sharedComponents";
 
 const Home: NextPage = () => {
-  const { user, addition, subtraction, multiplication } = useSettingsContext();
+  const { user, addition, subtraction, multiplication, division } =
+    useSettingsContext();
   const [currentOperation, setCurrentOperation] = useState("Addition");
   const operationEnabled =
-    addition.enabled || multiplication.enabled || subtraction.enabled;
+    addition.enabled ||
+    multiplication.enabled ||
+    subtraction.enabled ||
+    division.enabled;
   return (
     <>
       <TextContainer>
@@ -42,12 +47,13 @@ const Home: NextPage = () => {
           <OperationButton
             operation="Division"
             onClick={() => setCurrentOperation("Division")}
-            enabled={false}
+            enabled={division.enabled}
           />
         </div>
         {currentOperation === "Addition" && <AdditionInputs />}
         {currentOperation === "Multiplication" && <MultiplicationInputs />}
         {currentOperation === "Subtraction" && <SubtractionInputs />}
+        {currentOperation === "Division" && <DivisionInputs />}
         <div className="flex justify-center">
           <Link href={operationEnabled ? "/play" : ""}>
             <a>
