@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Router from "next/router";
 import { Button, TextContainer } from "@/sharedComponents";
 import { useSettingsContext } from "../settingsContext";
 import { Block, ErrorMessage, Input } from "./components";
@@ -25,13 +26,13 @@ export default function Login() {
     if (settings) {
       setSettings(settings);
     }
-    console.log(1, token);
     setUser((oldUser) => ({
       ...oldUser,
       name,
       loggedIn,
       token,
     }));
+    Router.push("/home");
   };
   const onLoginFail = (message: string) => setLoginMessage(message);
   const onCreateUserFail = (message: string) => setCreateUserMessage(message);
@@ -47,13 +48,14 @@ export default function Login() {
             </span>
           </TextContainer>
           <Button
-            onClick={() =>
+            onClick={() => {
               setUser((oldUser) => ({
                 ...oldUser,
                 name: "Anonymous",
                 loggedIn: true,
-              }))
-            }
+              }));
+              Router.push("/home");
+            }}
           >
             <span className="w-fit">Stay Anonymous</span>
           </Button>
