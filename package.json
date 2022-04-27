@@ -8,7 +8,8 @@
     "wasm_dev": "npm run wasm && npm run dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "wasm_pack": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
