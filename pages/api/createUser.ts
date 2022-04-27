@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../mongodb";
 import { LoginData } from "./types";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export default async function createUser(
   req: NextApiRequest,
@@ -18,8 +19,12 @@ export default async function createUser(
       .status(409)
       .json({ message: "Username already exists", loggedIn: false });
   }
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
 
-  const newUser = await db.collection("users").insertOne({ name, password });
+  const newUser = await db
+    .collection("users")
+    .insertOne({ name, password: hashedPassword });
   const jwtSecret = process.env.JWT_SECRET;
   if (!jwtSecret) {
     return res.status(403).json({ message: "Auth not properly setup" });
