@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Router from "next/router";
 import { Button, TextContainer } from "@/sharedComponents";
-import { useSettingsContext } from "../settingsContext";
-import { Block, ErrorMessage, Input } from "./components";
-import { createUser, onLogIn } from "./helpers";
+import { useSettingsContext } from "contexts/settingsContext";
+import { Block, ErrorMessage, Input } from "pageSpecific/login/components";
+import { createUser, onLogIn } from "pageSpecific/login/helpers";
 import { useWindowDimensions } from "sharedHooks";
-import { Settings } from "pages/types";
+import { Settings } from "types";
 
 export default function Login() {
   const { setUser, setSettings } = useSettingsContext();

@@ -1,17 +1,17 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useSettingsContext } from "../settingsContext";
-import { Equation } from "../types";
-import { useResizeImage, useWasm } from "./hooks";
-import { getRandomImage } from "./helpers";
+import { useSettingsContext } from "contexts/settingsContext";
+import { Equation } from "types";
+import { useResizeImage, useWasm } from "pageSpecific/play/hooks";
+import { getRandomImage } from "pageSpecific/play/helpers";
 import {
   AnswerStats,
   HomeButton,
   ImageContainer,
   Jigsaw,
   UserInput,
-} from "./components";
+} from "pageSpecific/play/components";
 import { useWindowDimensions } from "sharedHooks";
 import { StaticImageData } from "next/image";
 

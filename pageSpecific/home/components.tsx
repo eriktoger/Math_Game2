@@ -1,7 +1,6 @@
-import { prepareServerlessUrl } from "next/dist/server/base-server";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { useSettingsContext } from "../settingsContext";
-import { Operation } from "../types";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { useSettingsContext } from "contexts/settingsContext";
+import { Operation } from "types";
 import { tables } from "./constants";
 
 const generateOperationChangeHandler =

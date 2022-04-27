@@ -1,5 +1,5 @@
 import { StaticImageData } from "next/image";
-import { Equation, Operation } from "pages/types";
+import { Equation, Operation } from "types";
 import { useEffect, useRef, useState } from "react";
 import { useWindowDimensions } from "sharedHooks";
 import init, {

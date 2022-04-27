@@ -1,16 +1,16 @@
 import Link from "next/link";
 import type { NextPage } from "next";
 import { useState } from "react";
-import { useSettingsContext } from "../settingsContext";
+import { useSettingsContext } from "contexts/settingsContext";
 import {
   AdditionInputs,
   DivisionInputs,
   MultiplicationInputs,
   OperationButton,
   SubtractionInputs,
-} from "./components";
+} from "pageSpecific/home/components";
 import { Button, TextContainer } from "@/sharedComponents";
-import { saveSettings } from "./helpers";
+import { saveSettings } from "pageSpecific/home/helpers";
 
 const Home: NextPage = () => {
   const { user, addition, subtraction, multiplication, division } =

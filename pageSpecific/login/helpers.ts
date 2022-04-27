@@ -1,5 +1,5 @@
-import { Settings } from "pages/types";
-import { LoginData } from "../api/types";
+import { Settings } from "types";
+import { LoginData } from "types";
 
 const genericAuthFetch = async (
   onSuccess: (

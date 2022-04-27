@@ -45,3 +45,11 @@ export type Equation = {
   operator: "+";
   answer: Number;
 };
+
+export type LoginData = {
+  name?: string;
+  message?: string;
+  loggedIn?: boolean;
+  settings?: Settings;
+  token?: string;
+};

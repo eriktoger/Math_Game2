@@ -1,4 +1,4 @@
-import { Operation, User } from "./types";
+import { Operation, User } from "types";
 
 export const initialOperation = {
   enabled: true,

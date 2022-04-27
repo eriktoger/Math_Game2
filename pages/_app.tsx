@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { SettingsProvider, useSettingsContext } from "./settingsContext";
+import { SettingsProvider, useSettingsContext } from "contexts/settingsContext";
 import { NextComponentType, NextPageContext } from "next/types";
 import Login from "./login";
 
