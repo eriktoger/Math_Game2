@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../mongodb";
+import clientPromise from "mongoDB";
 import { LoginData } from "./types";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
