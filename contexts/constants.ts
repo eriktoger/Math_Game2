@@ -1,4 +1,4 @@
-import { Operation, User } from "types";
+import { Operation, SettingsState, User } from "types";
 
 export const initialOperation = {
   enabled: true,
@@ -15,3 +15,17 @@ export const initialUser = {
   loggedIn: false,
   token: "",
 } as User;
+
+export const initialSettingsState: SettingsState = {
+  user: initialUser,
+  setUser: () => {},
+  addition: initialOperation,
+  setAddition: () => {},
+  subtraction: initialOperation,
+  setSubtraction: () => {},
+  multiplication: initialOperation,
+  setMultiplication: () => {},
+  division: initialOperation,
+  setDivision: () => {},
+  setSettings: () => {},
+};

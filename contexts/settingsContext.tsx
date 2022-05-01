@@ -1,5 +1,9 @@
 import { createContext, useContext, useState } from "react";
-import { initialUser, initialOperation } from "./constants";
+import {
+  initialUser,
+  initialOperation,
+  initialSettingsState,
+} from "./constants";
 import { Settings, SettingsState, User } from "types";
 
 const useSettingsState = (): SettingsState => {
@@ -28,20 +32,6 @@ const useSettingsState = (): SettingsState => {
     setDivision,
     setSettings,
   };
-};
-
-const initialSettingsState: SettingsState = {
-  user: initialUser,
-  setUser: () => {},
-  addition: initialOperation,
-  setAddition: () => {},
-  subtraction: initialOperation,
-  setSubtraction: () => {},
-  multiplication: initialOperation,
-  setMultiplication: () => {},
-  division: initialOperation,
-  setDivision: () => {},
-  setSettings: () => {},
 };
 
 const SettingsContext = createContext(initialSettingsState);

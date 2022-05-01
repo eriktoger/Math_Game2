@@ -1,19 +1,19 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useSettingsContext } from "contexts/settingsContext";
+import { useSettingsContext } from "contexts";
 import { Equation } from "types";
-import { useResizeImage, useWasm } from "pageSpecific/play/hooks";
+import { useResizeImage } from "pageSpecific/play/hooks";
 import { getRandomImage } from "pageSpecific/play/helpers";
 import {
   AnswerStats,
-  HomeButton,
   ImageContainer,
   Jigsaw,
   UserInput,
 } from "pageSpecific/play/components";
-import { useWindowDimensions } from "sharedHooks";
+import { useWasm, useWindowDimensions } from "sharedHooks";
 import { StaticImageData } from "next/image";
+import { HomeButton } from "sharedComponents";
 
 const Play: NextPage = () => {
   const [answer, setAnswer] = useState("");

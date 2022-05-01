@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { useSettingsContext } from "contexts/settingsContext";
@@ -7,10 +6,10 @@ import {
   DivisionInputs,
   MultiplicationInputs,
   OperationButton,
+  PlayButtons,
   SubtractionInputs,
 } from "pageSpecific/home/components";
-import { Button, TextContainer } from "@/sharedComponents";
-import { saveSettings } from "pageSpecific/home/helpers";
+import { TextContainer } from "@/sharedComponents";
 
 const Home: NextPage = () => {
   const { user, addition, subtraction, multiplication, division } =
@@ -26,11 +25,7 @@ const Home: NextPage = () => {
     return "Addition";
   })();
   const [currentOperation, setCurrentOperation] = useState(defaultOperation);
-  const operationEnabled =
-    addition.enabled ||
-    multiplication.enabled ||
-    subtraction.enabled ||
-    division.enabled;
+
   return (
     <>
       <TextContainer>
@@ -65,29 +60,7 @@ const Home: NextPage = () => {
         {currentOperation === "Multiplication" && <MultiplicationInputs />}
         {currentOperation === "Subtraction" && <SubtractionInputs />}
         {currentOperation === "Division" && <DivisionInputs />}
-        <div className="flex justify-center">
-          <Link href={operationEnabled ? "/play" : ""}>
-            <a
-              onClick={() =>
-                saveSettings({
-                  user,
-                  settings: {
-                    addition,
-                    subtraction,
-                    multiplication,
-                    division,
-                  },
-                })
-              }
-            >
-              <Button disabled={!operationEnabled}>
-                {operationEnabled
-                  ? "Play"
-                  : "Enable an operation to start playing"}
-              </Button>
-            </a>
-          </Link>
-        </div>
+        <PlayButtons />
       </div>
     </>
   );

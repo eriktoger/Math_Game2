@@ -40,10 +40,10 @@ export type SettingsState = {
 };
 
 export type Equation = {
-  first: Number;
-  second: Number;
+  first: number;
+  second: number;
   operator: "+";
-  answer: Number;
+  answer: number;
 };
 
 export type LoginData = {

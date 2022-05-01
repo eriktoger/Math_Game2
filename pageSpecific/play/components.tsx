@@ -63,16 +63,6 @@ export const UserInput = ({
   </>
 );
 
-export const HomeButton = () => (
-  <div className="flex justify-center">
-    <Link href="/home">
-      <a>
-        <Button>Back Home</Button>
-      </a>
-    </Link>
-  </div>
-);
-
 export const AnswerStats = ({
   correct,
   wrong,

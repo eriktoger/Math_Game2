@@ -2,6 +2,9 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useSettingsContext } from "contexts/settingsContext";
 import { Operation } from "types";
 import { tables } from "./constants";
+import Link from "next/link";
+import { saveSettings } from "./helpers";
+import { Button } from "@/sharedComponents";
 
 const generateOperationChangeHandler =
   (setter: Dispatch<SetStateAction<Operation>>, field: keyof Operation) =>
@@ -205,3 +208,58 @@ export const OperationButton = ({
     <span className={enabled ? "" : "line-through"}>{operation}</span>
   </button>
 );
+
+export const PlayButtons = () => {
+  const { user, addition, subtraction, multiplication, division } =
+    useSettingsContext();
+  const operationEnabled =
+    addition.enabled ||
+    multiplication.enabled ||
+    subtraction.enabled ||
+    division.enabled;
+
+  if (!operationEnabled) {
+    return (
+      <div className="flex justify-center">Enable an operation to play</div>
+    );
+  }
+
+  return (
+    <div className="flex justify-center">
+      <Link href={"/play"}>
+        <a
+          onClick={() =>
+            saveSettings({
+              user,
+              settings: {
+                addition,
+                subtraction,
+                multiplication,
+                division,
+              },
+            })
+          }
+        >
+          <Button>Play</Button>
+        </a>
+      </Link>
+      <Link href={"/guess"}>
+        <a
+          onClick={() =>
+            saveSettings({
+              user,
+              settings: {
+                addition,
+                subtraction,
+                multiplication,
+                division,
+              },
+            })
+          }
+        >
+          <Button>Guess the question</Button>
+        </a>
+      </Link>
+    </div>
+  );
+};
