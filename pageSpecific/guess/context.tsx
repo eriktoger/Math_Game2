@@ -8,16 +8,22 @@ import {
 } from "react";
 import { useWasm } from "sharedHooks";
 import { Equation } from "types";
-import { initialGuessState, numberOfGuesses } from "./constants";
+import {
+  initialGuessState,
+  loss,
+  numberOfGuesses,
+  playing,
+  won,
+} from "./constants";
 import { equationToString, operationFound } from "./helpers";
-import { GuessState } from "./types";
+import { GameStatus, GuessState } from "./types";
 
 const useGuessState = (): GuessState => {
   const [equation, setEquation] = useState<Equation | null>(null);
   const [guess, setGuess] = useState("");
   const [guessCounter, setGuessCounter] = useState(0);
   const [guesses, setGuesses] = useState<string[]>([]);
-  const [gameStatus, setGameStatus] = useState("playing");
+  const [gameStatus, setGameStatus] = useState<GameStatus>(playing);
   const { wasmLoaded, generateEquation } = useWasm();
   const { addition, multiplication, subtraction, division } =
     useSettingsContext();
@@ -25,10 +31,10 @@ const useGuessState = (): GuessState => {
   const equationAsString = equationToString(equation);
   const onAnswerSubmit = () => {
     if (guess === equationAsString) {
-      setGameStatus("won");
+      setGameStatus(won);
       return;
     } else if (guessCounter === numberOfGuesses - 1) {
-      setGameStatus("loss");
+      setGameStatus(loss);
       return;
     }
 
@@ -84,7 +90,7 @@ const useGuessState = (): GuessState => {
       ) as string[];
       setGuesses(emptyGuesses);
       setEquation(newEquation);
-      setGameStatus("playing");
+      setGameStatus(playing);
       setGuess("");
       setGuessCounter(0);
     }

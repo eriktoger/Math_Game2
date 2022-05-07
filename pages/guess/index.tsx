@@ -1,12 +1,10 @@
 import {
+  GuessProvider,
+  useGuessContext,
   GameOver,
   GuessDisplay,
   UserInput,
-} from "pageSpecific/guess/components";
-import {
-  GuessProvider,
-  useGuessContext,
-} from "pageSpecific/guess/guessContext";
+} from "pageSpecific/guess";
 import { HomeButton } from "sharedComponents";
 
 const GuessTheQuestion = () => {
@@ -19,7 +17,7 @@ const GuessTheQuestion = () => {
 
   const gameIsPlaying = gameStatus === "playing";
   return (
-    <div>
+    <>
       {gameIsPlaying && <GuessDisplay />}
       {!gameIsPlaying && <GameOver />}
       <UserInput
@@ -30,16 +28,14 @@ const GuessTheQuestion = () => {
         onNewGame={onNewGame}
       />
       <HomeButton />
-    </div>
+    </>
   );
 };
 
-function GuessTheQuestionWithProvider() {
+export default function GuessTheQuestionWithProvider() {
   return (
     <GuessProvider>
       <GuessTheQuestion />
     </GuessProvider>
   );
 }
-
-export default GuessTheQuestionWithProvider;

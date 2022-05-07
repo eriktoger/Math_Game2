@@ -1,4 +1,4 @@
-import { initialGuessState } from "./constants";
+import { initialGuessState, loss, playing, won } from "./constants";
 
 export type GuessState = typeof initialGuessState;
 export interface UserInputProps {
@@ -8,3 +8,5 @@ export interface UserInputProps {
   onNewGame: () => void;
   answer: number;
 }
+
+export type GameStatus = typeof playing | typeof won | typeof loss;

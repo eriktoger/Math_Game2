@@ -1,25 +1,8 @@
 import { TextContainer, Button } from "@/sharedComponents";
-import { useGuessContext } from "./guessContext";
+import { chars } from "./constants";
+import { useGuessContext } from "./context";
 import { UserInputProps } from "./types";
 
-const chars = [
-  "1",
-  "2",
-  "3",
-  "+",
-  "4",
-  "5",
-  "6",
-  "-",
-  "7",
-  "8",
-  "9",
-  "*",
-  "0",
-  "C",
-  "=",
-  "/",
-];
 const NumPad = ({ onClick }: { onClick: (value: string) => void }) => (
   <div className="grid grid-cols-4">
     {chars.map((char) => (
